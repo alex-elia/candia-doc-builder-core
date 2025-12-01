@@ -1,10 +1,10 @@
-# Candia Doc Builder
+# Candia Doc Builder Core
 
-> **High-velocity toolkit for producing polished documentation, specs, and presentations with AI assistance.** Transform ideas into client-ready material in minutes, not hours.
+> **Open-source core toolkit for producing polished documentation, specs, and presentations with AI assistance.** Transform ideas into client-ready material in minutes, not hours, and extend privately with your own business logic.
 
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
-[![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)](https://github.com/alex-elia/candia-doc-builder)
+[![Maintained](https://img.shields.io/badge/maintained-yes-brightgreen.svg)](https://github.com/alex-elia/candia-doc-builder-core)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
 
 **Stop spending hours on presentations. Generate professional decks, architecture docs, and pitch materials programmatically.**
@@ -27,7 +27,7 @@ Candia Doc Builder automates the entire workflow:
 
 ## 🚀 Features
 
-### Core Capabilities
+### Core Capabilities (Open-Source)
 - ✅ **PowerPoint Generation** - Programmatic PPTX creation with `python-pptx`
 - ✅ **LaTeX/PDF Builders** - Professional pitch decks and architecture dossiers
 - ✅ **Template System** - Reusable templates with placeholder support
@@ -83,7 +83,7 @@ Candia Doc Builder automates the entire workflow:
 
 *Example: Thales Alenia Space presentation (see `examples/satellite/`)*
 
-## 🏗️ Architecture
+## 🏗️ Architecture Overview
 
 ```mermaid
 graph TB
@@ -119,9 +119,9 @@ graph TB
 ### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/alex-elia/candia-doc-builder.git
-cd candia-doc-builder
+# Clone the core repository
+git clone https://github.com/alex-elia/candia-doc-builder-core.git
+cd candia-doc-builder-core
 
 # Create virtual environment
 python -m venv .venv
@@ -152,6 +152,24 @@ cd scripts/latex
 3. **Run the generator** - Point to your template and content
 4. **Iterate** - Regenerate in seconds
 
+## 🔁 Core + Bundle Strategy
+
+This repository only ships **generic, reusable capabilities**. Use it as-is for open-source scenarios, or compose it inside a private bundle service when you need Elia Go–specific (or client-specific) workflows:
+
+| Layer | Repository | Purpose |
+|-------|------------|---------|
+| **Core (OSS)** | `candia-doc-builder-core` | Template engine, generators, docs, Docker base image |
+| **Bundle (Private)** | `candia-doc-builder` | Proprietary routes, business logic, secrets, deployment overlays |
+
+Recommended wiring:
+
+1. Keep this repo public.
+2. Create a private repo that either consumes the published package or adds this repo as a Git submodule.
+3. Extend via dependency injection (e.g., `StorageProvider`, `ReportWorkflow`) and enable features with env-driven toggles.
+4. Build production images from the private bundle repo so proprietary code never ships with the open image.
+
+See `docs/ARCHITECTURE.md` for the full blueprint.
+
 ## 📖 Use Cases
 
 ### Architecture & Design
@@ -175,7 +193,7 @@ cd scripts/latex
 ## 📁 Repository Structure
 
 ```
-candia-doc-builder/
+candia-doc-builder-core/
 ├── README.md                 # This file
 ├── LICENSE                   # Apache 2.0
 ├── requirements.txt          # Python dependencies
@@ -199,6 +217,7 @@ candia-doc-builder/
 ## 📚 Documentation
 
 - **[Complete Documentation](docs/README.md)** - All guides and tutorials
+- **[Dual-Repo Architecture](docs/ARCHITECTURE.md)** - How to combine core + private bundle
 - **[Template Guide](docs/guides/TEMPLATE_PREPARATION_GUIDE.md)** - Creating templates
 - **[Video Generation](docs/guides/VIDEO_DEMO_GENERATION_GUIDE.md)** - Demo videos
 - **[Examples](examples/)** - Working code examples
