@@ -1,0 +1,18 @@
+# Pod Disruption Budget for candia-doc-builder
+# Protects your application during node scaling operations
+# Ensures at least 1 pod is always available
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: candia-doc-builder-pdb
+  namespace: backend
+spec:
+  minAvailable: 1  # At least 1 pod must always be available
+  selector:
+    matchLabels:
+      app: candia-doc-builder
+
+
+
+
