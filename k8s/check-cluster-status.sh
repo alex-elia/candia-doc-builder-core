@@ -52,3 +52,7 @@ echo "Total deployments: $(kubectl get deployments --all-namespaces --no-headers
 
 
 
+
+
+
+
